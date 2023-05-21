@@ -1,0 +1,21 @@
+sqlite> .schema
+CREATE TABLE Users (
+  uid INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  country TEXT NOT NULL
+);
+CREATE TABLE Messages (
+  mid INTEGER PRIMARY KEY,
+  author INTEGER NOT NULL,
+  content TEXT NOT NULL,
+  date TEXT NOT NULL,
+  FOREIGN KEY (author) REFERENCES Users(uid)
+);
+CREATE TABLE Recipients (
+  mid INTEGER NOT NULL,
+  uid INTEGER NOT NULL,
+  read INTEGER,
+  PRIMARY KEY (mid, uid),
+  FOREIGN KEY (mid) REFERENCES Messages,
+  FOREIGN KEY (uid) REFERENCES Users
+);
